@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Keyboard Game</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+        var config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            parent: 'phaser-example',
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 300 },
+                    debug: false
+                }
+            },
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        var key_codes;
+        var game = new Phaser.Game(config);
+
+        function preload() {
+
+        }
+
+        function create() {
+            var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            key_codes = this.input.keyboard.addKeys(alphabet);
+            registerKeyboardEvents(this, key_codes);
+        }
+
+        function registerKeyboardEvents(scene, key_codes) {
+            for (var k in key_codes) {
+                var key = key_codes[k];
+                setKeyDownEvent(scene, key);
+            }
+        }
+
+        function setKeyDownEvent(scene, key) {
+            scene.input.keyboard.on('keydown_' + key.keyCode, function (event) {
+                console.log(key.keyCode + " pressed");
+            });
+        }
+
+        function update() {
+
+        }
+
+    </script>
+
+</body>
+
+</html>
