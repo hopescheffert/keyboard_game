@@ -15,7 +15,6 @@
 <body>
 
     <script type="text/javascript">
-
         var config = {
             type: Phaser.AUTO,
             width: 800,
@@ -39,13 +38,32 @@
         var game = new Phaser.Game(config);
 
         function preload() {
-
+            this.load.image("pixel", './assets/pixel.png');
         }
 
         function create() {
             var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             key_codes = this.input.keyboard.addKeys(alphabet);
             registerKeyboardEvents(this, key_codes);
+            generateScene(this);
+        }
+
+        function generateScene(scene) {
+            let background = scene.add.image(0, 0, "pixel");
+            background.setOrigin(0);
+            background.setDisplaySize(config.width, config.height);
+            background.setTint(0x9ca1a8);
+
+            let title = scene.add.text(0, 0, "Type this text");
+            title.setFontFamily("Arial");
+            title.setFontSize(40);
+            title.setPosition(config.width/2 - title.width/2, 100);
+
+            var graphics = scene.add.graphics({ fillStyle: { color: 0xaa00000} });
+            let rect = new Phaser.Geom.Rectangle(0, 0, config.width, 100);
+            rect.setPosition(0, config.height - rect.height);
+            graphics.fillRectShape(rect);
+
         }
 
         function registerKeyboardEvents(scene, key_codes) {
